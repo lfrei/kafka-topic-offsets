@@ -35,8 +35,11 @@ public class TopicOffsetConsumer {
     public Long getOffset(String topic) {
         List<TopicPartition> partitions = getPartitions(topic);
 
-        return kafkaConsumer.endOffsets(partitions)
-                .values().stream()
+        kafkaConsumer.assign(partitions);
+        kafkaConsumer.seekToEnd(partitions);
+
+        return partitions.stream()
+                .map(partition -> kafkaConsumer.position(partition))
                 .reduce(0L, Long::sum);
     }
 
