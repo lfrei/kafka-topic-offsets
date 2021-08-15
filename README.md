@@ -1,3 +1,3 @@
 # kafka-topic-offsets
 
-Track the offsets for a kafka topic
+Track the summarized offsets for all partitions of a kafka topic
